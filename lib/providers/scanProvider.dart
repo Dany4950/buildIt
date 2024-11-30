@@ -6,26 +6,23 @@ class scanLocationBarcode extends ChangeNotifier {
   List<ScanModel> barcodes = [];
   List<ScanModel> get scannedBarcodes => barcodes;
 
- Future<void> scanBarcode() async {
+  Future<void> scanBarcode() async {
     String barcode = await FlutterBarcodeScanner.scanBarcode(
-      '#ff6666', 
-      'Cancel', 
-      true, 
-      ScanMode.BARCODE, 
+      '#ff6666',
+      'Cancel',
+      true,
+      ScanMode.BARCODE,
     );
 
-    if (barcode != '-1') { 
+    if (barcode != '-1') {
       scannedBarcodes.add(ScanModel(barcode: barcode));
-      notifyListeners(); 
+      print(barcode);
+      notifyListeners();
     }
   }
-
 
   void retryScan() {
     scannedBarcodes.clear();
     notifyListeners();
   }
-
-  }
-
-
+}

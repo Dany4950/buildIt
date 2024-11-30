@@ -1,17 +1,21 @@
 import 'package:buildittt/screens/location_scanning/scanLBarcode.dart';
+import 'package:buildittt/widgets/homeAppBar.dart';
 import 'package:flutter/material.dart';
 
-class Homescreen extends StatefulWidget {
-  const Homescreen({super.key});
+class HOMESCREEN extends StatefulWidget {
+  const HOMESCREEN({super.key});
 
   @override
-  State<Homescreen> createState() => _HomescreenState();
+  State<HOMESCREEN> createState() => _HomescreenState();
 }
 
-class _HomescreenState extends State<Homescreen> {
+class _HomescreenState extends State<HOMESCREEN> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      appBar: HomeAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -23,6 +27,7 @@ class _HomescreenState extends State<Homescreen> {
               icon: const Icon(Icons.scanner))
         ],
       ),
+
     );
   }
 }

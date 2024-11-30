@@ -1,6 +1,7 @@
 
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:buildittt/widgets/elevatedButton.dart';
+import 'package:buildittt/widgets/homeAppBar.dart';
 import 'package:buildittt/widgets/landingPageText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -13,6 +14,7 @@ class Landingpage extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,7 +68,9 @@ Text("of Limitless exploration with barcode scanner "),
 
 //elevated button email singup 
           
-          elevatedButtonYellow(text: "Continue with Email ")
+          elevatedButtonYellow(
+            
+            text: "Continue with Email ")
         ],
       ),
     );

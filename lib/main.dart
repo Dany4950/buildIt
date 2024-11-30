@@ -1,3 +1,4 @@
+import 'package:buildittt/providers/bottomNavBarProvider.dart';
 import 'package:buildittt/providers/scanProvider.dart';
 import 'package:buildittt/screens/landingPage.dart';
 import 'package:buildittt/utils/appTheme.dart';
@@ -16,8 +17,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (_) => BottomNavProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => scanLocationBarcode(),
-        )
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

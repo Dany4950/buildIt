@@ -15,9 +15,8 @@ class ScanlbarcodeState extends State<Scanlbarcode> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Builder(
-        builder: (context) => 
-         Column(
-
+        builder: (context) => Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
               child: Consumer<scanLocationBarcode>(
@@ -28,7 +27,7 @@ class ScanlbarcodeState extends State<Scanlbarcode> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => scan_location_Items_result()),
+                          builder: (context) => ScanLocationItemsResult()),
                     );
                   },
                   child: Center(child: Text('Scan Barcode')),

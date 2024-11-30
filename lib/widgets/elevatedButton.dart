@@ -1,4 +1,6 @@
+
 import 'package:buildittt/utils/appTheme.dart';
+import 'package:buildittt/widgets/bottomNavBar.dart';
 import 'package:flutter/material.dart';
 
 class elevatedButtonYellow extends StatelessWidget {
@@ -20,7 +22,10 @@ class elevatedButtonYellow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => MainNavigationScreenn()));
+      },
       child: Container(
         width: width,
         height: height,
