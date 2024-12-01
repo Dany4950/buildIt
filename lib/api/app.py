@@ -8,9 +8,10 @@ import shutil
 import json
 
 from static.utils.HashUtils import HashUtils
-from models import db, Item, LoadingNote
+from models import db, Item, LoadingNote, User
 from interactor import itemScanner
 from static.utils.BarcodeScanner import BarcodeScanner
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
@@ -39,6 +40,42 @@ with app.app_context():
     db.create_all()
 
 hashes = dict()
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    required_fields = ["email", "password"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    user = User.query.filter_by(email=data["email"]).first()
+    if not user or not check_password_hash(user.password, data["password"]):
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    return jsonify({"message": "Login Successful", "username": user.username}), 200
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = request.json
+    required_fields = ["username", "email", "password"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+    
+    existing_user = User.query.filter_by(email=data["email"]).first()
+    if existing_user:
+        return jsonify({"error": "User already exists."}), 400
+
+    hashed_password = generate_password_hash(data["password"])
+    
+    new_user = User(
+        username=data["username"],
+        email=data["email"],
+        password=hashed_password
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "User created successfully"}), 201
 
 @app.route("/location", methods=["POST"])
 def location():
@@ -277,7 +314,6 @@ def verifyLoadingNote():
 @app.route("/verifyBarcodeLN", methods=["POST"])
 def verifyBarcode():
     data = request.get_json()
-    print(data)
     if not data:
         return jsonify({"error": "Invalid or missing JSON in request."}), 400
 
