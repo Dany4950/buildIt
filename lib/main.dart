@@ -1,3 +1,5 @@
+import 'package:buildittt/providers/authProvider/loginScreenProvider.dart';
+import 'package:buildittt/providers/authProvider/singupProvider.dart';
 import 'package:buildittt/providers/bottomNavBarProvider.dart';
 import 'package:buildittt/providers/homeToSearch.dart';
 import 'package:buildittt/providers/scanProvider.dart';
@@ -18,6 +20,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => SignupProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LoginScreenProvider(),
+        ),
         ChangeNotifierProvider(
           create: (context) =>SearchProvider() ,
         ),

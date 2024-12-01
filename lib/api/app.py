@@ -1,27 +1,81 @@
 from flask import Flask, request, jsonify, send_file
-
-from flask_sqlalchemy import SQLAlchemy 
-
+from flask_sqlalchemy import SQLAlchemy
 import os
 import pandas as pd
-import hashlib
 import tempfile
 import secrets
 import shutil
+import json
 
 from static.utils.HashUtils import HashUtils
-from models import db, Item
+from models import db, Item, LoadingNote, User
 from interactor import itemScanner
 from static.utils.BarcodeScanner import BarcodeScanner
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 db.init_app(app)
 
+def createDummy():
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
+        dummyData = [
+            LoadingNote(loadingNote="LN001", itemBarcodeData="ITEM001", locationBarcodeData="LOC001", present=False),
+            LoadingNote(loadingNote="LN001", itemBarcodeData="ITEM002", locationBarcodeData="LOC001", present=False),
+            LoadingNote(loadingNote="LN002", itemBarcodeData="ITEM003", locationBarcodeData="LOC002", present=False),
+            LoadingNote(loadingNote="LN003", itemBarcodeData="ITEM004", locationBarcodeData="LOC003", present=False),
+        ]
+
+        db.session.bulk_save_objects(dummyData)
+        db.session.commit()
+        print("Dummy data added.")
+
+    
+createDummy()
+
 with app.app_context():
     db.create_all()
 
 hashes = dict()
+
+
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+    required_fields = ["email", "password"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+
+    user = User.query.filter_by(email=data["email"]).first()
+    if not user or not check_password_hash(user.password, data["password"]):
+        return jsonify({"error": "Invalid email or password"}), 401
+
+    return jsonify({"message": "Login Successful", "username": user.username}), 200
+
+@app.route("/signup", methods=["POST"])
+def signup():
+    data = request.json
+    required_fields = ["username", "email", "password"]
+    if not all(field in data for field in required_fields):
+        return jsonify({"error": "Missing required fields"}), 400
+    
+    existing_user = User.query.filter_by(email=data["email"]).first()
+    if existing_user:
+        return jsonify({"error": "User already exists."}), 400
+
+    hashed_password = generate_password_hash(data["password"])
+    
+    new_user = User(
+        username=data["username"],
+        email=data["email"],
+        password=hashed_password
+    )
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"message": "User created successfully"}), 201
 
 @app.route("/location", methods=["POST"])
 def location():
@@ -112,7 +166,7 @@ def items():
 
 
 @app.route("/file", methods=["POST"])
-def file():
+def files():
     recievedHeaders = dict(request.headers)
     requiredHeaders = ["Locationdata", "Hashkey"]
     for header in requiredHeaders:
@@ -213,7 +267,77 @@ def itemsData():
         }
     }), 201
 
+@app.route("/query", methods=["POST"])
+def query() -> json:
+    if not request.is_json:
+        return jsonify({"error": "Request must a JSON."}), 400
+    
+    data = request.get_json()
 
+    if "locationBarcodeData" not in data:
+        return jsonify({"error": "No locationBarcodeData provided."}), 400
 
+    locationBarcodeData = data["locationBarcodeData"]
+    matchingItems = Item.query.filter_by(locationBarcodeData=locationBarcodeData).all()
+
+    if not matchingItems:
+        return jsonify({"message": "No items found for the provided locationBarcodeData."}), 404
+    
+    items_list = [
+        {
+            "itemId": item.itemId,
+            "locationBarcodeData": item.locationBarcodeData,
+            "itemBarcodeData": item.itemBarcodeData,
+            "sequence": item.sequence,
+            "quantity": item.quantity,
+        }
+        for item in matchingItems
+    ]
+
+    return jsonify({
+        "message": "Query successful.",
+        "items": items_list
+    }), 200
+
+@app.route("/verifyLN", methods=["POST"])
+def verifyLoadingNote():
+    data = request.get_json()
+    if "loadingNote" not in data:
+        return jsonify({"error": "Loading note is not present in the request."}), 400
+
+    result = LoadingNote.query.filter(LoadingNote.loadingNote.contains(data["loadingNote"])).first()
+    if result:
+        return jsonify({"status": "verified"}), 200
+    else:
+        return jsonify({"status": "unverified"}), 404
+
+@app.route("/verifyBarcodeLN", methods=["POST"])
+def verifyBarcode():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid or missing JSON in request."}), 400
+
+    required = ["itemBarcodeDataSent", "loadingNote"]
+    for item in required:
+        if item not in data:
+            return jsonify({"error": "Missing data."}), 400
+
+    itemBarcodeDataSent = data["itemBarcodeDataSent"]
+    loadingNote = data["loadingNote"]
+    
+    matching = LoadingNote.query.filter_by(loadingNote=loadingNote).all()
+    if not matching:
+        return jsonify({"error": "No matching rows for the provided loading note."}), 404 
+
+    for row in matching:
+        if row.itemBarcodeData == itemBarcodeDataSent:
+            row.present = True
+            db.session.commit()
+            return jsonify({"status": "verified", "message": "Barcode data matched and updated"}), 200
+    
+    return jsonify({"status": "unverified", "message": "Item barcode not found in loading note."}), 404
+
+    
 if __name__ == "__main__":
-    app.run(debug=True, port=47308)
+    app.run(debug=True , host='10.0.2.2' , port=5000)  # Change to another available port, e.g., 5001
+ # or app.run(debug=True, host="127.0.0.1", port=5000)

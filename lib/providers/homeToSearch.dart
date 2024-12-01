@@ -1,5 +1,5 @@
 
-import 'package:buildittt/screens/searchScreen.dart';
+import 'package:buildittt/screens/homePage/searchScreen.dart';
 import 'package:flutter/material.dart';
 
 class Hometosearch extends ChangeNotifier{

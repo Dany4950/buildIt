@@ -3,7 +3,7 @@
 import 'package:buildittt/screens/bottomNavScreens/bookMarkScreen.dart';
 import 'package:buildittt/screens/bottomNavScreens/createScreen.dart';
 import 'package:buildittt/screens/bottomNavScreens/profileScreen.dart';
-import 'package:buildittt/screens/homeScreen.dart';
+import 'package:buildittt/screens/homePage/homeScreen.dart';
 import 'package:buildittt/utils/appTheme.dart';
 
 import 'package:flutter/material.dart';

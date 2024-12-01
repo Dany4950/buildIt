@@ -18,39 +18,6 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-//   Future<void> sendQueryToServer() async {
-//     if (_query.isEmpty) {
-//       _errorMessage = "Please enter a valid number.";
-//       notifyListeners();
-//       return;
-//     }
-
-//     _isLoading = true;
-//     _errorMessage = null;
-//     notifyListeners();
-
-//     try {
-//       final url = Uri.parse('http://127.0.0.1:5000'); // Replace with your endpoint
-//       final response = await http.post(
-//         url,
-//         headers: {'Content-Type': 'application/json'},
-//         body: jsonEncode({'number': _query}),
-//       );
-
-//       if (response.statusCode == 200) {
-//         _responseData = jsonDecode(response.body);
-//       } else {
-//         _errorMessage = "Failed to fetch data. Server returned ${response.statusCode}.";
-//       }
-//     } catch (e) {
-//       _errorMessage = "An error occurred: $e";
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-// }
-
   Future<void> sendQueryToServer() async {
     if (_query.isEmpty) {
       _errorMessage = "Please enter a valid number.";
@@ -63,13 +30,14 @@ class SearchProvider extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final url = Uri.parse('http://127.0.0.1:5000/query'); // Use your machine's IP here
+      final url =
+          Uri.parse('http://10.0.2.2:5000/query'); // Use your machine's IP here
       print('Sending request with query: $_query');
 
       final response = await http.post(
         url,
         headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({'number': _query}),
+        body: jsonEncode({'locationBarcodeData': _query}),
       );
 
       print('Response status: ${response.statusCode}');

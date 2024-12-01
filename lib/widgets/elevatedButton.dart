@@ -1,6 +1,7 @@
 
+import 'package:buildittt/screens/signup/login.dart';
 import 'package:buildittt/utils/appTheme.dart';
-import 'package:buildittt/widgets/bottomNavBar.dart';
+
 import 'package:flutter/material.dart';
 
 class elevatedButtonYellow extends StatelessWidget {
@@ -24,7 +25,7 @@ class elevatedButtonYellow extends StatelessWidget {
     return ElevatedButton(
       onPressed: () {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => MainNavigationScreenn()));
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: Container(
         width: width,

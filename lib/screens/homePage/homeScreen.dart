@@ -1,8 +1,5 @@
 import 'package:buildittt/providers/homeToSearch.dart';
-import 'package:buildittt/providers/searchBarHome.dart';
-import 'package:buildittt/screens/location_scanning/scanLBarcode.dart';
-import 'package:buildittt/screens/searchScreen.dart';
-import 'package:buildittt/widgets/elevatedButton.dart';
+
 import 'package:buildittt/widgets/homeAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,14 +14,13 @@ class HOMESCREEN extends StatefulWidget {
 class _HomescreenState extends State<HOMESCREEN> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: HomeAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-         
           Builder(
             builder: (context) {
               //searchbar to search using locations
@@ -32,27 +28,24 @@ class _HomescreenState extends State<HOMESCREEN> {
                   Provider.of<Hometosearch>(context, listen: false);
               return Row(
                 children: [
-                   SizedBox(width: screenWidth*0.15,),
+                  SizedBox(
+                    width: screenWidth * 0.15,
+                  ),
                   ElevatedButton(
                       onPressed: () {
                         homeToSearch.onTapONSearch(context);
                       },
                       child: Container(
-                        width: screenWidth*0.56,
+                        width: screenWidth * 0.56,
                         child: const Center(
-                          child: Text("Search Location "),
+                          child: Text("Search Order "),
                         ),
                       )),
                 ],
               );
             },
           ),
-          IconButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Scanlbarcode()));
-              },
-              icon: const Icon(Icons.scanner))
+          
         ],
       ),
     );
