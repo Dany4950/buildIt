@@ -2,19 +2,38 @@ from flask import Flask, request, jsonify, send_file
 from flask_sqlalchemy import SQLAlchemy
 import os
 import pandas as pd
-import hashlib
 import tempfile
 import secrets
 import shutil
+import json
 
 from static.utils.HashUtils import HashUtils
-from models import db, Item
+from models import db, Item, LoadingNote
 from interactor import itemScanner
 from static.utils.BarcodeScanner import BarcodeScanner
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 db.init_app(app)
+
+def createDummy():
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
+
+        dummyData = [
+            LoadingNote(loadingNote="LN001", itemBarcodeData="ITEM001", locationBarcodeData="LOC001", present=False),
+            LoadingNote(loadingNote="LN001", itemBarcodeData="ITEM002", locationBarcodeData="LOC001", present=False),
+            LoadingNote(loadingNote="LN002", itemBarcodeData="ITEM003", locationBarcodeData="LOC002", present=False),
+            LoadingNote(loadingNote="LN003", itemBarcodeData="ITEM004", locationBarcodeData="LOC003", present=False),
+        ]
+
+        db.session.bulk_save_objects(dummyData)
+        db.session.commit()
+        print("Dummy data added.")
+
+    
+createDummy()
 
 with app.app_context():
     db.create_all()
@@ -110,7 +129,7 @@ def items():
 
 
 @app.route("/file", methods=["POST"])
-def file():
+def files():
     recievedHeaders = dict(request.headers)
     requiredHeaders = ["Locationdata", "Hashkey"]
     for header in requiredHeaders:
@@ -211,7 +230,77 @@ def itemsData():
         }
     }), 201
 
+@app.route("/query", methods=["POST"])
+def query() -> json:
+    if not request.is_json:
+        return jsonify({"error": "Request must a JSON."}), 400
+    
+    data = request.get_json()
 
+    if "locationBarcodeData" not in data:
+        return jsonify({"error": "No locationBarcodeData provided."}), 400
 
+    locationBarcodeData = data["locationBarcodeData"]
+    matchingItems = Item.query.filter_by(locationBarcodeData=locationBarcodeData).all()
+
+    if not matchingItems:
+        return jsonify({"message": "No items found for the provided locationBarcodeData."}), 404
+    
+    items_list = [
+        {
+            "itemId": item.itemId,
+            "locationBarcodeData": item.locationBarcodeData,
+            "itemBarcodeData": item.itemBarcodeData,
+            "sequence": item.sequence,
+            "quantity": item.quantity,
+        }
+        for item in matchingItems
+    ]
+
+    return jsonify({
+        "message": "Query successful.",
+        "items": items_list
+    }), 200
+
+@app.route("/verifyLN", methods=["POST"])
+def verifyLoadingNote():
+    data = request.get_json()
+    if "loadingNote" not in data:
+        return jsonify({"error": "Loading note is not present in the request."}), 400
+
+    result = LoadingNote.query.filter(LoadingNote.loadingNote.contains(data["loadingNote"])).first()
+    if result:
+        return jsonify({"status": "verified"}), 200
+    else:
+        return jsonify({"status": "unverified"}), 404
+
+@app.route("/verifyBarcodeLN", methods=["POST"])
+def verifyBarcode():
+    data = request.get_json()
+    print(data)
+    if not data:
+        return jsonify({"error": "Invalid or missing JSON in request."}), 400
+
+    required = ["itemBarcodeDataSent", "loadingNote"]
+    for item in required:
+        if item not in data:
+            return jsonify({"error": "Missing data."}), 400
+
+    itemBarcodeDataSent = data["itemBarcodeDataSent"]
+    loadingNote = data["loadingNote"]
+    
+    matching = LoadingNote.query.filter_by(loadingNote=loadingNote).all()
+    if not matching:
+        return jsonify({"error": "No matching rows for the provided loading note."}), 404 
+
+    for row in matching:
+        if row.itemBarcodeData == itemBarcodeDataSent:
+            row.present = True
+            db.session.commit()
+            return jsonify({"status": "verified", "message": "Barcode data matched and updated"}), 200
+    
+    return jsonify({"status": "unverified", "message": "Item barcode not found in loading note."}), 404
+
+    
 if __name__ == "__main__":
     app.run(debug=True)

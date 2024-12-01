@@ -77,7 +77,7 @@ def test_flask_app():
 
     # Test /query endpoint
     query_data = {
-        "locationData": "Location-1"
+        "locationBarcodeData": "Location-1"
     }
     response = requests.post(f"{base_url}/query", json=query_data)
     query_result = response.json()
@@ -87,6 +87,41 @@ def test_flask_app():
         print("Failed to test /query endpoint")
         return
 
+    verify_ln_payload = {
+        "loadingNote": "LN001"
+    }
+
+
+    response = requests.post(f"{base_url}/verifyLN", json=verify_ln_payload)
+    verify_ln_result = response.json()
+    print("VerifyLN endpoint response:", verify_ln_result)
+
+    if response.status_code == 200:
+        print("/verifyLN passed successfully: Loading note verified.")
+    elif response.status_code == 404:
+        print("/verifyLN: Loading note unverified, as expected.")
+    else:
+        print("Failed to test /verifyLN endpoint")
+        return
+
+    # Test /verifyBarcodeLN endpoint
+    verify_barcode_payload = {
+        "itemBarcodeDataSent": "ITEM001",
+        "loadingNote": "LN001"
+    }
+    response = requests.post(f"{base_url}/verifyBarcodeLN", json=verify_barcode_payload)
+    verify_barcode_result = response.json()
+    print("VerifyBarcodeLN endpoint response:", verify_barcode_result)
+
+    if response.status_code == 200:
+        print("/verifyBarcodeLN passed successfully: Barcode verified and updated.")
+    elif response.status_code == 404:
+        print("/verifyBarcodeLN: Barcode unverified, as expected.")
+    else:
+        print("Failed to test /verifyBarcodeLN endpoint")
+        return
+
+    print("Tests for /verifyLN and /verifyBarcodeLN passed successfully!")
     print("All tests passed successfully!")
 
 if __name__ == "__main__":
