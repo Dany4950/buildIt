@@ -1,5 +1,7 @@
 import 'package:buildittt/providers/bottomNavBarProvider.dart';
+import 'package:buildittt/providers/homeToSearch.dart';
 import 'package:buildittt/providers/scanProvider.dart';
+import 'package:buildittt/providers/searchBarHome.dart';
 import 'package:buildittt/screens/landingPage.dart';
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) =>SearchProvider() ,
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Hometosearch(),
+        ),
         ChangeNotifierProvider(
           create: (_) => BottomNavProvider(),
         ),

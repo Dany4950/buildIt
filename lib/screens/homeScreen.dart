@@ -1,6 +1,11 @@
+import 'package:buildittt/providers/homeToSearch.dart';
+import 'package:buildittt/providers/searchBarHome.dart';
 import 'package:buildittt/screens/location_scanning/scanLBarcode.dart';
+import 'package:buildittt/screens/searchScreen.dart';
+import 'package:buildittt/widgets/elevatedButton.dart';
 import 'package:buildittt/widgets/homeAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HOMESCREEN extends StatefulWidget {
   const HOMESCREEN({super.key});
@@ -17,8 +22,31 @@ class _HomescreenState extends State<HOMESCREEN> {
     return Scaffold(
       appBar: HomeAppBar(),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+         
+          Builder(
+            builder: (context) {
+              //searchbar to search using locations
+              final Hometosearch homeToSearch =
+                  Provider.of<Hometosearch>(context, listen: false);
+              return Row(
+                children: [
+                   SizedBox(width: screenWidth*0.15,),
+                  ElevatedButton(
+                      onPressed: () {
+                        homeToSearch.onTapONSearch(context);
+                      },
+                      child: Container(
+                        width: screenWidth*0.56,
+                        child: const Center(
+                          child: Text("Search Location "),
+                        ),
+                      )),
+                ],
+              );
+            },
+          ),
           IconButton(
               onPressed: () {
                 Navigator.push(context,
@@ -27,7 +55,6 @@ class _HomescreenState extends State<HOMESCREEN> {
               icon: const Icon(Icons.scanner))
         ],
       ),
-
     );
   }
 }

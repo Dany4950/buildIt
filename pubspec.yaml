@@ -38,6 +38,7 @@ dependencies:
   provider: ^6.1.2
   mobile_scanner: ^6.0.2
   flutter_barcode_scanner: ^2.0.0
+  http: ^1.2.2
 
 
 dev_dependencies:

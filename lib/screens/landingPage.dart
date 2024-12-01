@@ -1,7 +1,7 @@
 
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:buildittt/widgets/elevatedButton.dart';
-import 'package:buildittt/widgets/homeAppBar.dart';
+
 import 'package:buildittt/widgets/landingPageText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
