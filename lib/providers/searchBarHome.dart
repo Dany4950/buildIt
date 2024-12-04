@@ -31,7 +31,7 @@ class SearchProvider extends ChangeNotifier {
 
     try {
       final url =
-          Uri.parse('http://10.0.2.2:5000/query'); // Use your machine's IP here
+          Uri.parse('http://3.111.72.98:8000/query'); // Use your machine's IP here
       print('Sending request with query: $_query');
 
       final response = await http.post(
@@ -48,6 +48,7 @@ class SearchProvider extends ChangeNotifier {
       } else {
         _errorMessage =
             "Failed to fetch data. Server returned ${response.statusCode}.";
+        print(_errorMessage);
       }
     } catch (e) {
       _errorMessage = "An error occurred: $e";

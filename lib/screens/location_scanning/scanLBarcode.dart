@@ -3,6 +3,7 @@ import 'package:buildittt/screens/location_scanning/resultLocationBarcode.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 class Scanlbarcode extends StatefulWidget {
   const Scanlbarcode({super.key});
 
@@ -11,6 +12,7 @@ class Scanlbarcode extends StatefulWidget {
 }
 
 class ScanlbarcodeState extends State<Scanlbarcode> {
+  String result = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +21,7 @@ class ScanlbarcodeState extends State<Scanlbarcode> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Center(
-              child: Consumer<scanLocationBarcode>(
+              child:  Consumer<scanLocationBarcode>(
                   builder: (context, scanProvider, child) {
                 return ElevatedButton(
                   onPressed: () async {

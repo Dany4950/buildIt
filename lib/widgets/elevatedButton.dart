@@ -37,8 +37,8 @@ class elevatedButtonYellow extends StatelessWidget {
           style: textStyle ??
               const TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 25),
+                  color: Colors.black,
+                  fontSize: 20),
         ),
       ),
     );

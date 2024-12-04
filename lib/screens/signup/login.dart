@@ -1,29 +1,33 @@
-
-
-
 import 'package:buildittt/providers/authProvider/loginScreenProvider.dart';
 import 'package:buildittt/screens/signup/signIn.dart';
 import 'package:buildittt/widgets/bottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
     final loginProvider = Provider.of<LoginScreenProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+
+            SizedBox(height: screenHeight*0.18,),
+            Container(
+                height: screenHeight * 0.19,
+                child: Image.asset('assets/images/appLogo.png')),
             const SizedBox(height: 40),
             const Center(
               child: Text(
-                "Login to Your Account",
+                "Login to Barcode Scanner",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -56,30 +60,33 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             // Login button
-            ElevatedButton(
-              onPressed: loginProvider.isLoading
-                  ? null
-                  : () async {
-                      final success = await loginProvider.onLoginTap();
-                      if (success) {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MainNavigationScreenn()));
-                      } else {
-                        // Show error if login fails
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(loginProvider.errorMessage ?? 'Login failed.'),
-                          ),
-                        );
-                      }
-                    },
-              child: loginProvider.isLoading
-                  ? const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : const Text('Login'),
+            Center(
+              child: ElevatedButton(
+                onPressed: loginProvider.isLoading
+                    ? null
+                    : () async {
+                        final success = await loginProvider.onLoginTap();
+                        if (success) {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MainNavigationScreenn()));
+                        } else {
+                          // Show error if login fails
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                  loginProvider.errorMessage ?? 'Login failed.'),
+                            ),
+                          );
+                        }
+                      },
+                child: loginProvider.isLoading
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      )
+                    : const Text('Login'),
+              ),
             ),
             const SizedBox(height: 20),
             // Error message display
@@ -91,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                   style: const TextStyle(color: Colors.red),
                 ),
               ),
-              Row(
+            Row(
               children: [
                 SizedBox(width: 100),
                 Text("dont have Account ? "),
@@ -102,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => SignupScreen()));
                   },
-                  child:  const Text(
+                  child: const Text(
                     "Singup",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),

@@ -38,7 +38,7 @@ class SignupProvider extends ChangeNotifier {
     try {
       print('Sending request to server...');
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/signup'),
+        Uri.parse('http://3.111.72.98:8000/signup'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,

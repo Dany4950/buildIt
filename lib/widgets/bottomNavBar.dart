@@ -46,7 +46,7 @@ class MainNavigationScreenn extends StatelessWidget {
               HOMESCREEN(),
               Bookmarkscreen(),
               Createscreen(),
-              Profilescreen(),
+              ProfileScreen( ),
             ],
           ),
           currentIndex: provider.currentIndex,

@@ -101,7 +101,7 @@ class LoginScreenProvider extends ChangeNotifier {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/login'), // Flask API endpoint
+        Uri.parse('http://3.111.72.98:8000/login'), // Flask API endpoint
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
@@ -149,7 +149,7 @@ class LoginScreenProvider extends ChangeNotifier {
 
     try {
       final response = await http.post(
-        Uri.parse('http://10.0.2.2:5000/signup'), // Flask API endpoint
+        Uri.parse('http://3.111.72.98:8000/signup'), // Flask API endpoint
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,

@@ -1,7 +1,7 @@
 import requests
 
 def test_flask_app():
-    base_url = "http://10.0.2.2:5000"
+    base_url = "http://10.0.2.2"
 
     # Test /location endpoint
     location_image_path = "static/images/location/Location-1.png"

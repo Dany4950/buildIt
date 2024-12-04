@@ -9,19 +9,27 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
     final signupProvider = Provider.of<SignupProvider>(context);
 
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+              SizedBox(height: screenHeight*0.05,),
+            Container(
+                height: screenHeight * 0.19,
+                child: Image.asset('assets/images/appLogo.png')),
+            const SizedBox(height: 40),
+
             const Text(
-              "Create a New Account",
+              "Sign Up to BarCode Scanner",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 40),
 
@@ -67,30 +75,35 @@ class SignupScreen extends StatelessWidget {
             const SizedBox(height: 30),
 
             // Signup Button
-            ElevatedButton(
-              onPressed: signupProvider.isLoading
-                  ? null // Disable button while loading
-                  : () async {
-                      final success = await signupProvider.signup();
-                      if (success) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Signup successful!")),
-                        );
-                        Navigator.pushReplacementNamed(context, '/login');
-                      } else {
-                        _showErrorDialog(context,
-                            signupProvider.errorMessage ?? "Signup failed.");
-                      }
-                    },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                textStyle: const TextStyle(fontSize: 18),
+            Center(
+              child: ElevatedButton(
+                
+                onPressed: signupProvider.isLoading
+                    ? null // Disable button while loading
+                    : () async {
+                        final success = await signupProvider.signup();
+                        if (success) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Signup successful!")),
+                          );
+                          Navigator.pushReplacementNamed(context, '/login');
+                        } else {
+                          _showErrorDialog(context,
+                              signupProvider.errorMessage ?? "Signup failed.");
+                        }
+                      },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
+                child: signupProvider.isLoading
+                    ? const CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      )
+                    : Container(
+                      width: double.infinity,
+                      child: Center(child: const Text("Sign Up" , style: TextStyle( fontWeight: FontWeight.bold,color: Colors.black),))),
               ),
-              child: signupProvider.isLoading
-                  ? const CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    )
-                  : const Text("Sign Up"),
             ),
             const SizedBox(height: 20),
 
@@ -101,7 +114,7 @@ class SignupScreen extends StatelessWidget {
                 const Text("Already have an account? "),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context,
+                    Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => LoginScreen()));
                   },
                   child: const Text("Login"),
