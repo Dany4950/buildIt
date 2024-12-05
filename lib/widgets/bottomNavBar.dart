@@ -42,11 +42,11 @@ class MainNavigationScreenn extends StatelessWidget {
         return NavigationScaffold(
           body: IndexedStack(
             index: provider.currentIndex,
-            children: const [
-              HOMESCREEN(),
-              Bookmarkscreen(),
-              Createscreen(),
-              ProfileScreen( ),
+            children: [
+              const HOMESCREEN(),
+               VerifyLoadingNoteScreen(),
+              const Createscreen(),
+              const ProfileScreen( ),
             ],
           ),
           currentIndex: provider.currentIndex,

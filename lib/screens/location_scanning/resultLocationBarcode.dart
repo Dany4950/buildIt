@@ -18,7 +18,7 @@ class ScanLocationItemsResult extends StatelessWidget {
       body: Consumer<scanLocationBarcode>(
         builder: (context, scanLocationBarcode, child) {
           // Access the barcodes list
-          final List<ScanModel> barcodes = scanLocationBarcode.barcodes;
+          final List barcodes = scanLocationBarcode.itemBarcodes;
 
           if (barcodes.isEmpty) {
             return const Center(
@@ -27,10 +27,10 @@ class ScanLocationItemsResult extends StatelessWidget {
           }
 
           return ListView.builder(
-            itemCount: scanLocationBarcode.barcodes.length,
+            itemCount: scanLocationBarcode.itemBarcodes.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(scanLocationBarcode.scannedBarcodes[index].barcode), // Wrap the string in Text widget
+                title: Text(scanLocationBarcode.itemBarcodes[index].barcode), // Wrap the string in Text widget
               );
             },
           );

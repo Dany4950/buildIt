@@ -78,7 +78,7 @@
 //   }
 // }
 
-import 'package:buildittt/providers/searchBarHome.dart';
+import 'package:buildittt/providers/searchBarHomeProvider.dart';
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -53,6 +53,7 @@ class SignupProvider extends ChangeNotifier {
         // Handle server errors
         final responseData = jsonDecode(response.body);
         _errorMessage = responseData['error'] ?? "Signup failed.";
+        print(errorMessage);
         return false;
       }
     } catch (e) {
