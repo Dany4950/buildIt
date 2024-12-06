@@ -37,12 +37,16 @@ class SignupScreen extends StatelessWidget {
             TextField(
               controller: signupProvider.usernameController,
               decoration: InputDecoration(
+                
                 labelText: 'Username',
                 prefixIcon: const Icon(Icons.person),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
             ),
             const SizedBox(height: 20),
 
@@ -56,6 +60,9 @@ class SignupScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
               keyboardType: TextInputType.emailAddress,
             ),
             const SizedBox(height: 20),
@@ -70,6 +77,9 @@ class SignupScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
+              style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
               obscureText: true,
             ),
             const SizedBox(height: 30),
@@ -102,7 +112,7 @@ class SignupScreen extends StatelessWidget {
                       )
                     : Container(
                       width: double.infinity,
-                      child: Center(child: const Text("Sign Up" , style: TextStyle( fontWeight: FontWeight.bold,color: Colors.black),))),
+                      child: Center(child: const Text("Sign Up" , style: TextStyle( fontWeight: FontWeight.bold,color: Colors.white),))),
               ),
             ),
             const SizedBox(height: 20),

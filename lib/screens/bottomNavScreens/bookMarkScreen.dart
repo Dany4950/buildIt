@@ -19,6 +19,7 @@ class VerifyLoadingNoteScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
+               style: TextStyle(color: Colors.white),
               controller: _loadingNoteController,
               decoration: InputDecoration(
                 labelText: "Enter Loading Note",

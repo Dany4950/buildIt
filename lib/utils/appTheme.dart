@@ -15,6 +15,7 @@ class Apptheme {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white, backgroundColor: buttonColorYellow,
           textStyle: TextStyle(
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),

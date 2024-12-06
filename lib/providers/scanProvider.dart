@@ -307,6 +307,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:http/http.dart' as http;
 
 class scanLocationBarcode extends ChangeNotifier {
+  
   String? locationHash; // Stores the hash key for the location barcode
   List<ScanModel> itemBarcodes = []; // Stores item barcodes
   final List<ScanModel> Locationbarcodes = [];
@@ -393,20 +394,22 @@ class scanLocationBarcode extends ChangeNotifier {
       print("items");
       print(itemBarcodes);
       print(itemBarcodes.map((e) => e.barcode).toString());
-      print(locationHash);
+      print(locationHash!);
+      print(Locationbarcodes.isNotEmpty ? Locationbarcodes.first.barcode : '');
       final response = await http.post(
         Uri.parse('http://3.111.72.98:8000/itemsData'),
         headers: {
           'Content-Type': 'application/json',
-          "Locationdata": "Location-1",
-          "Hashkey": locationHash.toString(),
+          "Locationdata":
+              Locationbarcodes.isNotEmpty ? Locationbarcodes.first.barcode : '',
+          "Hashkey": locationHash!,
         },
         body: jsonEncode({
           'itemBarcodeData': itemBarcodes.map((e) => e.barcode).toString(),
           'quantity': itemQuantity,
         }),
       );
-
+      final responsee = response.body;
       if (response.statusCode == 200) {
         print("Items successfully updated");
         print(response.body);

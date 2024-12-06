@@ -108,11 +108,16 @@ class SearchScreen extends StatelessWidget {
 
   Widget _buildSearchField(SearchProvider searchProvider) {
     return TextField(
+      style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
       decoration: InputDecoration(
+        
         labelText: "Search an Order",
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20),
         ),
+        
         suffixIcon: const Icon(Icons.search),
       ),
       onChanged: (value) => searchProvider.updateQuery(value),
@@ -202,11 +207,11 @@ class SearchScreen extends StatelessWidget {
       child: DataTable(
       dataTextStyle: TextStyle(color: Colors.white),
         columns: const [
-          DataColumn(label: Text("Item Barcode")),
-          DataColumn(label: Text("Item ID")),
-          DataColumn(label: Text("Location Barcode")),
-          DataColumn(label: Text("Quantity")),
-          DataColumn(label: Text("Sequence")),
+          DataColumn(label: Text("Item Barcode" , style: TextStyle(color: Colors.white),)),
+          DataColumn(label: Text("Item ID", style: TextStyle(color: Colors.white)),),
+          DataColumn(label: Text("Location Barcode", style: TextStyle(color: Colors.white))),
+          DataColumn(label: Text("Quantity", style: TextStyle(color: Colors.white))),
+          DataColumn(label: Text("Sequence", style: TextStyle(color: Colors.white))),
         ],
         rows: items.map((item) {
           return DataRow(cells: [

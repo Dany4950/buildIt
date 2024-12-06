@@ -223,15 +223,16 @@ class ItemScanningPage extends StatelessWidget {
       body: Consumer<scanLocationBarcode>(
         builder: (context, scanProvider, child) {
           return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Display the location hash
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(
-                  "Location Hash: ${scanProvider.locationHash ?? 'Not Set'}",
-                  style: const TextStyle(fontSize: 18),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(16.0),
+              //   child: Text(
+              //     "Location Hash: ${scanProvider.locationHash ?? 'Not Set'}",
+              //     style: const TextStyle(fontSize: 18),
+              //   ),
+              // ),
 
               // ListView to display scanned items
               Expanded(
@@ -240,6 +241,7 @@ class ItemScanningPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(
+                        style: TextStyle(color: Colors.white),
                         "Item: ${scanProvider.itemBarcodes[index].barcode}",
                       ),
                     );
@@ -251,6 +253,7 @@ class ItemScanningPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
+                  style: TextStyle(color: Colors.white),
                   controller: scanProvider.quantityContoller,
                   decoration: const InputDecoration(
                     labelText: "Enter Quantity",

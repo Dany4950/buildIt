@@ -42,6 +42,9 @@ class LoginScreen extends StatelessWidget {
                   prefixIcon: Icon(Icons.email),
                   border: OutlineInputBorder(),
                 ),
+                style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
               ),
             ),
             const SizedBox(height: 20),
@@ -56,6 +59,9 @@ class LoginScreen extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                   border: OutlineInputBorder(),
                 ),
+                style: const TextStyle(
+    color: Colors.white, // Sets the text color to white
+  ),
               ),
             ),
             const SizedBox(height: 20),

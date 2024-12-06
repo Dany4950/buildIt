@@ -2,6 +2,8 @@ import 'package:buildittt/providers/scanProvider.dart';
 import 'package:buildittt/screens/homePage/homeScreen.dart';
 import 'package:buildittt/screens/location_scanning/resultLocationBarcode.dart';
 import 'package:buildittt/screens/location_scanning/scanLBarcode.dart';
+import 'package:buildittt/screens/location_scanning/scanLocationBarcode.dart';
+import 'package:buildittt/screens/scanBarcodeLN.dart';
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:buildittt/widgets/elevatedButton.dart';
 

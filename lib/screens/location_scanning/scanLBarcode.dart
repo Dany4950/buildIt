@@ -70,8 +70,8 @@ import 'package:provider/provider.dart';
 import 'package:buildittt/providers/scanProvider.dart';
 
 
-class ScanLocationPage extends StatelessWidget {
-  const ScanLocationPage({super.key});
+class ScanLocationnPage extends StatelessWidget {
+  const ScanLocationnPage({super.key});
 
   @override
   Widget build(BuildContext context) {
