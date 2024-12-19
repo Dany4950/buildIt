@@ -1,11 +1,11 @@
 import 'package:buildittt/providers/scanProvider.dart';
-import 'package:buildittt/screens/homePage/homeScreen.dart';
+
 import 'package:buildittt/screens/location_scanning/resultLocationBarcode.dart';
-import 'package:buildittt/screens/location_scanning/scanLBarcode.dart';
+
 import 'package:buildittt/screens/location_scanning/scanLocationBarcode.dart';
-import 'package:buildittt/screens/scanBarcodeLN.dart';
+
 import 'package:buildittt/utils/appTheme.dart';
-import 'package:buildittt/widgets/elevatedButton.dart';
+
 import 'package:buildittt/widgets/hamBurgerMenu.dart';
 
 import 'package:flutter/material.dart';
@@ -18,7 +18,7 @@ class Createscreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    // double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
          leading: Builder(
