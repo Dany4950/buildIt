@@ -1,5 +1,6 @@
 
 import 'package:buildittt/screens/homePage/searchScreen.dart';
+import 'package:buildittt/widgets/hamBurgerMenu.dart';
 
 import 'package:buildittt/widgets/homeAppBar.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,10 @@ class HOMESCREEN extends StatefulWidget {
 class _HomescreenState extends State<HOMESCREEN> {
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double screenWidth = MediaQuery.of(context).size.width;
+    // double screenHeight = MediaQuery.of(context).size.height;
+    // double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      drawer:AppDrawer(),
       appBar: HomeAppBar(),
 
       body: SearchScreen(),

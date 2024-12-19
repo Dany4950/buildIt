@@ -1,5 +1,6 @@
 import 'package:buildittt/providers/loadingNoteProvider.dart';
 import 'package:buildittt/screens/scanBarcodeLN.dart';
+import 'package:buildittt/widgets/hamBurgerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,14 +13,27 @@ class VerifyLoadingNoteScreen extends StatelessWidget {
     final loadingNoteProvider = Provider.of<LoadingNoteProvider>(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text("Verify Loading Note")),
+      drawer: AppDrawer(),
+      appBar: AppBar(
+         leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Open the drawer using the context of the Builder
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        title: Text("Verify Loading Note")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextField(
-               style: TextStyle(color: Colors.white),
+               style: TextStyle(color: Colors.black),
               controller: _loadingNoteController,
               decoration: InputDecoration(
                 labelText: "Enter Loading Note",

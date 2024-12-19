@@ -29,7 +29,7 @@ class TextContainer extends StatelessWidget {
         text,
         style: textStyle ??
             const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white, fontSize: 25),
+                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 25),
       ),
     );
   }

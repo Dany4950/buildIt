@@ -241,7 +241,7 @@ class ItemScanningPage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.black),
                         "Item: ${scanProvider.itemBarcodes[index].barcode}",
                       ),
                     );
@@ -253,7 +253,7 @@ class ItemScanningPage extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.black),
                   controller: scanProvider.quantityContoller,
                   decoration: const InputDecoration(
                     labelText: "Enter Quantity",

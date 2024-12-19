@@ -1,8 +1,8 @@
 
-import 'package:buildittt/providers/scanProvider.dart';
+
 import 'package:buildittt/widgets/bottomNavBar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+
 
 class DisplayScannedDataPage extends StatelessWidget {
   final String locationHash; // Location hash to display
@@ -15,7 +15,7 @@ class DisplayScannedDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Accessing the provider
-    final scannedDataProvider = Provider.of<scanLocationBarcode>(context);
+    // final scannedDataProvider = Provider.of<scanLocationBarcode>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,8 +30,8 @@ class DisplayScannedDataPage extends StatelessWidget {
         ),
         title: const Text("Scanned Data "),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
+      body: const  Padding(
+        padding:  EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           

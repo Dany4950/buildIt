@@ -1,6 +1,6 @@
 
 
-import 'package:buildittt/models/barcodeModel.dart';
+
 import 'package:buildittt/providers/scanProvider.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +22,7 @@ class ScanLocationItemsResult extends StatelessWidget {
 
           if (barcodes.isEmpty) {
             return const Center(
-              child: Text("No barcodes found."),
+              child: Text("No barcodes found.",style: TextStyle(color: Colors.black)),
             );
           }
 
@@ -30,7 +30,7 @@ class ScanLocationItemsResult extends StatelessWidget {
             itemCount: scanLocationBarcode.itemBarcodes.length,
             itemBuilder: (context, index) {
               return ListTile(
-                title: Text(scanLocationBarcode.itemBarcodes[index].barcode), // Wrap the string in Text widget
+                title: Text(scanLocationBarcode.itemBarcodes[index].barcode , style: TextStyle(color: Colors.black),), // Wrap the string in Text widget
               );
             },
           );

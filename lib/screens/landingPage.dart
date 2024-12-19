@@ -50,6 +50,7 @@ class Landingpage extends StatelessWidget {
             ),
             //home page text white
             TextContainer(
+
               text: "Discover Endless possibilites with  ",
               height: screenHeight * 0.09,
             ),
@@ -66,8 +67,8 @@ class Landingpage extends StatelessWidget {
         
             //small text
             Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: const Text(
+                padding:  EdgeInsets.only(top: 8.0),
+                child:  Text(
                     "      Where creativity meets Innovation : Embark on a journey ")),
         
             Text("of Limitless exploration with barcode scanner "),

@@ -6,6 +6,7 @@ import 'package:buildittt/screens/location_scanning/scanLocationBarcode.dart';
 import 'package:buildittt/screens/scanBarcodeLN.dart';
 import 'package:buildittt/utils/appTheme.dart';
 import 'package:buildittt/widgets/elevatedButton.dart';
+import 'package:buildittt/widgets/hamBurgerMenu.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +21,24 @@ class Createscreen extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+         leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Open the drawer using the context of the Builder
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         backgroundColor: Apptheme.appBackgroundColor,
         title: Text(
           "Create Order",
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
       ),
+      drawer: AppDrawer(),
       body: SingleChildScrollView(
         child: Builder(
           builder: (context) => Column(

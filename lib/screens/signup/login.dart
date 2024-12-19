@@ -43,7 +43,7 @@ class LoginScreen extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
                 style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to black 
   ),
               ),
             ),
@@ -60,7 +60,7 @@ class LoginScreen extends StatelessWidget {
                   border: OutlineInputBorder(),
                 ),
                 style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to black 
   ),
               ),
             ),
@@ -116,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                             builder: (context) => SignupScreen()));
                   },
                   child: const Text(
-                    "Singup",
+                    "Signup",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                   ),
                 )

@@ -40,6 +40,7 @@
 
 import 'package:buildittt/providers/authProvider/loginScreenProvider.dart';
 import 'package:buildittt/utils/appTheme.dart';
+import 'package:buildittt/widgets/hamBurgerMenu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -52,8 +53,20 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Open the drawer using the context of the Builder
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
         title: Text('Profile'),
       ),
+      drawer: AppDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Consumer<LoginScreenProvider>(

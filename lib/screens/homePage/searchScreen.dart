@@ -109,7 +109,7 @@ class SearchScreen extends StatelessWidget {
   Widget _buildSearchField(SearchProvider searchProvider) {
     return TextField(
       style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to white
   ),
       decoration: InputDecoration(
         
@@ -205,13 +205,13 @@ class SearchScreen extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
-      dataTextStyle: TextStyle(color: Colors.white),
+      dataTextStyle: TextStyle(color: Colors.black),
         columns: const [
-          DataColumn(label: Text("Item Barcode" , style: TextStyle(color: Colors.white),)),
-          DataColumn(label: Text("Item ID", style: TextStyle(color: Colors.white)),),
-          DataColumn(label: Text("Location Barcode", style: TextStyle(color: Colors.white))),
-          DataColumn(label: Text("Quantity", style: TextStyle(color: Colors.white))),
-          DataColumn(label: Text("Sequence", style: TextStyle(color: Colors.white))),
+          DataColumn(label: Text("Item Barcode" , style: TextStyle(color: Colors.black),)),
+          DataColumn(label: Text("Item ID", style: TextStyle(color: Colors.black)),),
+          DataColumn(label: Text("Location Barcode", style: TextStyle(color: Colors.black))),
+          DataColumn(label: Text("Quantity", style: TextStyle(color: Colors.black))),
+          DataColumn(label: Text("Sequence", style: TextStyle(color: Colors.black))),
         ],
         rows: items.map((item) {
           return DataRow(cells: [

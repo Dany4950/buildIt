@@ -6,8 +6,8 @@ class Apptheme {
 
   static ThemeData get theme {
     return ThemeData(
-      scaffoldBackgroundColor: appBackgroundColor,
-      textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.white)),
+      scaffoldBackgroundColor: Colors.grey[300],
+      textTheme: TextTheme(bodyMedium: TextStyle(color: Colors.black)),
       appBarTheme: const AppBarTheme(
         
       ),
@@ -15,7 +15,7 @@ class Apptheme {
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white, backgroundColor: buttonColorYellow,
           textStyle: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.bold,
           ),
         ),

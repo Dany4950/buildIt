@@ -40,6 +40,7 @@ class MainNavigationScreenn extends StatelessWidget {
     return Consumer<BottomNavProvider>(
       builder: (context, provider, child) {
         return NavigationScaffold(
+        
           body: IndexedStack(
             index: provider.currentIndex,
             children: [

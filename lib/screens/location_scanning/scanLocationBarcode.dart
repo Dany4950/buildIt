@@ -94,7 +94,7 @@ class ScanLocationPage extends StatelessWidget {
                       children: [
                         // Display the scanned location barcode
                         Text(
-                           style: TextStyle(color: Colors.white,fontSize: 18),
+                           style: TextStyle(color: Colors.black,fontSize: 18),
                           "Location Barcode: ${scanProvider.Locationbarcodes.isNotEmpty ? scanProvider.Locationbarcodes.first.barcode : 'No barcode scanned'}",
                         ),
                         const SizedBox(height: 20),

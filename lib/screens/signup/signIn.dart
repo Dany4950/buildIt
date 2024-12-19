@@ -45,7 +45,7 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to black
   ),
             ),
             const SizedBox(height: 20),
@@ -61,7 +61,7 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to black 
   ),
               keyboardType: TextInputType.emailAddress,
             ),
@@ -78,7 +78,7 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               style: const TextStyle(
-    color: Colors.white, // Sets the text color to white
+    color: Colors.black, // Sets the text color to black
   ),
               obscureText: true,
             ),
@@ -108,11 +108,11 @@ class SignupScreen extends StatelessWidget {
                 ),
                 child: signupProvider.isLoading
                     ? const CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.black),
                       )
                     : Container(
                       width: double.infinity,
-                      child: Center(child: const Text("Sign Up" , style: TextStyle( fontWeight: FontWeight.bold,color: Colors.white),))),
+                      child: Center(child: const Text("Sign Up" , style: TextStyle( fontWeight: FontWeight.bold,color: Colors.black),))),
               ),
             ),
             const SizedBox(height: 20),

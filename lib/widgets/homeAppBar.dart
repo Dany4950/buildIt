@@ -29,6 +29,7 @@
 // }
 
 import 'package:buildittt/utils/appTheme.dart';
+import 'package:buildittt/widgets/hamBurgerMenu.dart';
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -43,16 +44,30 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             height: 10,
           ),
           AppBar(
+            leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              onPressed: () {
+                // Open the drawer using the context of the Builder
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        
+
             automaticallyImplyLeading: false, // Remove the back arrow
             backgroundColor: Apptheme.appBackgroundColor,
-          
+
             title: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Align text to the left
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align text to the left
               children: [
                 Text(
                   "Welcome back",
                   style: TextStyle(
-                    color: Colors.white, // Adjust text color for visibility
+                    color: Colors.black, // Adjust text color for visibility
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
@@ -62,7 +77,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
                   "BarCode Scanner",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.white, // Slightly lighter color for subtitle
+                    color: Colors.black, // Slightly lighter color for subtitle
                     fontSize: 18,
                   ),
                 ),
